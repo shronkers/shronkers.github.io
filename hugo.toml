@@ -1,4 +1,25 @@
-baseURL = 'https://shronkers.github.io/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'risotto'
+baseURL = "https://shronkers.github.io/"
+title = "grigoriyagas.tech"
+theme = "risotto"
+
+pluralizeListTitles = false
+
+[markup]
+	[markup.goldmark]
+		[markup.goldmark.renderer]
+			unsafe = true
+
+[params.about]
+	title = "grigoriyagas.tech"
+	description = "Grigoriy Agasyants's personal website"
+
+[menu]
+	[[menu.main]]
+		identifier = "portfolio"
+		name = "portfolio"
+		url = "/portfolio"
+		weight = 10
+	[[menu.main]]
+		identifier = "blog"
+		name = "blog"
+		url = "/blog"
