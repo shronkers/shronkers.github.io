@@ -1,5 +1,5 @@
-baseURL = "https://shronkers.github.io/"
-title = "grigoriyagas.tech"
+baseURL = "https://grigoriy-agas.tech/"
+title = "grigoriy-agas.tech"
 theme = "risotto"
 
 pluralizeListTitles = false
@@ -10,7 +10,7 @@ pluralizeListTitles = false
 			unsafe = true
 
 [params.about]
-	title = "grigoriyagas.tech"
+	title = "grigoriy-agas.tech"
 	description = "Grigoriy Agasyants's personal website"
 
 [menu]
