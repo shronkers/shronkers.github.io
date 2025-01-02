@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>My experience with Advent of Code 2024 &ndash; grigoriy-agas.tech</title>
+<meta name="description" content="Grigoriy Agasyants&#39;s personal website">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="http://localhost:1313/css/risotto.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">grigoriy-agas.tech</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="http://localhost:1313/portfolio" title="">portfolio</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="http://localhost:1313/blog" title="">blog</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1><span class="base0B">My experience with Advent of Code 2024</span></h1>
+    </header>
+    <div class="content__body">
+        <p>This year was the first time I solved every puzzle in Advent of Code.</p>
+<p>In this post I&rsquo;ll describe my solutions for each day and my share my thoughts about some of the puzzles.</p>
+<hr>
+<h1 id="day-1">Day 1</h1>
+<p><strong>Part 1</strong>: Calculate <code>abs(n1 - n2)</code> for each <code>n1</code> in the sorted first list and <code>n2</code> in the sorted second list,
+add them all up.</p>
+<p><strong>Part 2</strong>: Calculate <code>n1 * list2.count(n1)</code> for each <code>n1</code> in the first list, add them all up.</p>
+<p>Not much to say about this day.</p>
+<hr>
+<h1 id="day-2">Day 2</h1>
+<p><strong>Part 1</strong>: For each sequence check if its sorted or reverse sorted, then check if
+all of the distances between numbers in the sequence are either 1, 2 or 3.</p>
+<p><strong>Part 2</strong>: For each sequence, perform the same check. If a sequence doesn&rsquo;t pass
+the check, try checking every possible sequence made by removing one element from
+the original sequence.</p>
+<p>When I originally solved this day in Rust I overcomplicated this quite a bit.</p>
+<p>Here&rsquo;s a one-liner in Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(str((a<span style="color:#f92672">:=</span>[list(map(int,x<span style="color:#f92672">.</span>split())) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> open(<span style="color:#e6db74">&#34;i&#34;</span>)]))[:<span style="color:#ae81ff">0</span>],(l<span style="color:#f92672">:=</span>len)([x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> a <span style="color:#66d9ef">if</span> (e<span style="color:#f92672">:=</span><span style="color:#66d9ef">lambda</span> x:(x<span style="color:#f92672">==</span>(s<span style="color:#f92672">:=</span>sorted)(x) <span style="color:#f92672">or</span> x<span style="color:#f92672">==</span>s(x)[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">&amp;</span> all(y <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>] <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> [abs(x[i]<span style="color:#f92672">-</span>x[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,l(x))]) <span style="color:#f92672">and</span> l(set(x))<span style="color:#f92672">==</span>l(x))(x)]),<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,l([x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> a <span style="color:#66d9ef">if</span> any(e(z) <span style="color:#66d9ef">for</span> z <span style="color:#f92672">in</span> [x]<span style="color:#f92672">+</span>[x[:i]<span style="color:#f92672">+</span>x[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(l(x))])]),sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+</span></span></code></pre></div><hr>
+<h1 id="day-3">Day 3</h1>
+<p><strong>Part 1</strong>: Use this regex <code>mul\((\d{1,3}),(\d{1,3})\)</code> to find every mul(),
+multiply the numbers and add the results up.</p>
+<p><strong>Part 2</strong>: Find the <code>mul()</code>s, <code>do()</code>s and <code>don't()</code>s with regex.
+Construct a list with elements <code>(range, true/false)</code> where the range represents indexes
+in the input string and the boolean represents if we&rsquo;re allowed to add a <code>mul()</code> result
+in this range to the result. Iterate over the <code>mul()</code>s and check what range they&rsquo;re in.
+Add up the results of <code>mul()</code>s in good ranges to get the final result.</p>
+<p>This day was the first time I&rsquo;ve ever used regex properly. Took me a little bit to figure out
+the logic to solve this puzzle.</p>
+<hr>
+<h1 id="day-4">Day 4</h1>
+<p><strong>Part 1</strong>: Check every possible vertical, horizontal, diagonal line for instances of <code>XMAS</code> or <code>SAMX</code></p>
+<p><strong>Part 2</strong>: Check every possible cross (represented here as 5 symbols (top left, top right, bottom left, bottom right, center))
+for instances of <code>MMSSA</code>, <code>MSMSA</code>, <code>SSMMA</code>, <code>SMSMA</code>.</p>
+<p>Easier than day 3.</p>
+<hr>
+<h1 id="day-5">Day 5</h1>
+<p><strong>Part 1</strong>: Check every page sequence against every rule, add up the middle page numbers of every sequence that fits every rule.</p>
+<p><strong>Part 2</strong>: Performing the same checks, get the incorrectly ordered sequences. For each one of those swap elements
+that don&rsquo;t fit the rules while the sequence isn&rsquo;t correctly ordered, then add up the middle page numbers of every acquired sequence.</p>
+<p>Quite a simple and elegant puzzle. Not much to say here.</p>
+<hr>
+<h1 id="day-6">Day 6</h1>
+<p><strong>Part 1</strong>: Simulate the guard&rsquo;s movements until he arrives at a border of the map. For each cell visited, add it to a set.
+The <code>len()</code> of the set after the end of the simulation is the answer.</p>
+<p><strong>Part 2</strong>: Try adding a wall at every possible position, simulate the guard&rsquo;s movements until he arrives at a border (not counted towards the answer)
+or until he arrives at a cell that has already been visited while facing the same direction he was facing when visiting that cell before (counted towards the answer).</p>
+<p>First puzzle that took me more than 100 lines of Rust to solve.</p>
+<hr>
+<h1 id="day-7">Day 7</h1>
+<p><strong>Part 1</strong>: Consider that all the possible operations can be represented as a binary number where an unset bit is a <code>+</code> and a set bit is a <code>*</code>.
+Execute all the possible sequences of operations until the result matches the needed number. Add up all the matched results.</p>
+<p><strong>Part 2</strong>: Same thing but as a base3 number. The concatenation operator is equivalent to multiplying the first operand by <code>10 ** operand2digits</code> and adding <code>operand2</code>.
+For example: <code>12345 || 67</code> is equivalent to <code>12345 * (10 ** 2) + 67</code>.</p>
+<p>Pro tips: The number of digits a number <code>x</code> has is <code>floor(log10(x))</code>. The <code>n</code>th digit of a base3 number <code>x</code> with <code>y</code> digits is <code>(x / 3 ** (y - n - 1)) % 3</code>.
+(I&rsquo;m actually not too sure if that last one is correct but it worked for me)</p>
+<hr>
+<h1 id="day-8">Day 8</h1>
+<p><strong>Part 1</strong>: Find the positions of all the anntenae. Put them in a hashmap with the frequency as the key and the positions of antennae
+with that frequency as the value.</p>
+<p>For every frequency consider all possible pairs of different antennae (<strong>order matters here</strong>, so <code>(a, b)</code>
+is not the same as <code>(b, a)</code>).</p>
+<p>For each pair calculate the difference in rows and in columns between the first and the second antenna
+and add that difference to the second antennas coordinates to get the position of the antinode that that pair generates.</p>
+<p>If the position of the antinode that would be placed with these two antennae is within the bounds of the map,
+add it to a set (which has coordinates as values) of placed antinodes. The length of that set is the answer.</p>
+<p><strong>Part 2</strong>: Do the exact same thing except instead of getting only one antinode per pair just keep adding the difference between
+coordinates until you go outside the bounds of the map.</p>
+<p>I might have overexplained this one, it is quite easy.</p>
+<hr>
+<h1 id="day-9">Day 9</h1>
+<p><strong>Part 1</strong>: Construct an array with the initial state of the hard drive. Represent empty space as <code>0</code> and the IDs with numbers from <code>1</code> onwards
+(make sure to remember that you did this later). Use <em>numbers</em> as elements of the vector, <em><strong>not characters</strong></em> (this is important since
+ID numbers larger than 10 would take up more than 1 character but we still want to consider them as taking up one cell).</p>
+<p>Then for every zero in the hard drive find the last non-empty cell and swap them. Calculate the checksum and you have your answer.</p>
+<p><strong>Part 2</strong>: Get the initial state of the hard drive the same way you did in Part 1. Make a vector with elements <code>(range, bool, int)</code>
+where the <code>range</code> is the range of indexes the file takes up, <code>bool</code> is whether the file has been moved yet (this is false at the moment),
+<code>int</code> is the ID of the file.</p>
+<p>Going from the end of this new vector (<code>i = vec.len() - 1</code>) if the current range hasn&rsquo;t been moved check every range with indexes (<code>j</code>)
+from <code>1</code> to <code>i </code><strong><code>+ 1</code></strong>. Check the amount of free space between ranges <code>j</code> and <code>j - 1</code>. This is the difference between the start of the range
+at <code>j</code> and the end of the range at <code>j - 1</code>.</p>
+<p>If we can fit the current range into this free space, remove the range at <code>i</code> from the vector
+and insert it back at index <code>j</code> with the <code>bool</code> value set to true.</p>
+<p>If after checking all the ranges at <code>j</code> we didn&rsquo;t find enough free space
+to fit the range at <code>i</code>, subtract one from <code>i</code> and repeat the process. This works since if we did manage to move the range, the next one to
+check would still be at index <code>i</code>.</p>
+<p>This was the first fairly complicated day for me. I managed to get stuck on an edge case where I wasn&rsquo;t considering a block&rsquo;s ability
+to move in between its own start and the end of the block right before it (that&rsquo;s what the <code>+ 1</code> is for).</p>
+<hr>
+<h1 id="day-10">Day 10</h1>
+<p><strong>Part 1</strong>: Find the positions of all the trailheads (zeroes). Put them in a vector. While that vector isn&rsquo;t empty iterate over it,
+adding new points that need to be checked as a part of some trail to that same vector. If a unique position with a <code>9</code> in it is found,
+add one to the result.</p>
+<p>Here&rsquo;s some <em>pseudocode</em> to help illustrate the idea better:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">part1</span>(map) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// let&#39;s consider a &#34;position&#34; to be a tuple (row, column)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">let</span> positions <span style="color:#f92672">=</span> find_zeroes(map);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> pos <span style="color:#66d9ef">in</span> positions {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> to_be_checked <span style="color:#f92672">=</span> find_next_points(map, pos);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> found_nines <span style="color:#f92672">=</span> vec![];
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">while</span> <span style="color:#f92672">!</span>to_be_checked.is_empty() {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">let</span> new <span style="color:#f92672">=</span> vec![];
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">for</span> p <span style="color:#66d9ef">in</span> to_be_checked {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> map[p.<span style="color:#ae81ff">0</span>][p.<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">9</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>found_nines.contains(p) {
+</span></span><span style="display:flex;"><span>						found_nines.push(p);
+</span></span><span style="display:flex;"><span>					}
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				new.extend(find_next_points(map, p));
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			to_be_checked <span style="color:#f92672">=</span> new;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		res <span style="color:#f92672">+=</span> found_nines.len();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>find_next_points()</code> simply checks the four points around the current position to see if any of them can be the next step in the path.</p>
+<p><strong>Part 2</strong>: Instead of checking for <em>unique</em> nines, just add any nines you encounter to the result.</p>
+<p>Simple day.</p>
+<hr>
+<h1 id="day-11">Day 11</h1>
+<p><strong>Part 1</strong>: Just simulate the stones changing 25 times.</p>
+<p><strong>Part 2</strong>: Create a hashmap with the stones number as the key and the amount of times that stone appears as the value. There&rsquo;s no need to
+keep track of every individual stone since their order doesn&rsquo;t matter. Calculate how many stones of which numbers there woud be after
+blinking (store this as a new hashmap). Make the old hashmap be the new hashmap. Rinse and repeat for 75 total steps.</p>
+<p>Took me a <em><strong>while</strong></em> to come up with a solution for Part 2. The Part 2 solution would also work with Part 1, and it would be faster too!</p>
+<hr>
+<h1 id="day-12">Day 12</h1>
+<p><strong>Part 1</strong>: Finding the positions of different shapes is simple. It&rsquo;s similar to a flood-fill, except you consider the letter of the shape
+you&rsquo;re trying to find as empty space and everything else as walls.</p>
+<p>The perimeter of a shape can be found by adding up the <em>&ldquo;contributions&rdquo;</em> of each position in the shape. A &ldquo;contribution&rdquo; is equal to <code>4</code>
+minus the amount of neighbors that position has in this specific shape. The area of a shape is simply the amount of cells it contains.</p>
+<p><strong>Part 2</strong>: The amount of sides a shape has is equal to the amount of turns taken while traversing the border of this shape.
+After that, we need to find the amount of sides of all the shapes enclosed inside of some shape. To do this, map the shape onto an empty
+2D array, then, starting from an empty space outside of the shape, flood fill everything, considering the letter of the shape as a wall.
+Then, invert the 2D array, and you will now have only the enclosed shapes (to find individual enclosed shapes use same algorithm from Part 1).</p>
+<p>Using the same algorithm, find all the shapes, then for each shape calculate its amount of sides. Using the
+process described above, recursively calculate the amounts of sides of all enclosed shapes (recursion is needed since a shape can be inside
+a shape which is itself inside a shape and so on). The area calculation is the same as Part 1.</p>
+<p>First really tough day.</p>
+<hr>
+<h1 id="day-13">Day 13</h1>
+<p><strong>Part 1</strong> and <strong>Part 2</strong>: Consider the following system of equations:</p>
+<pre tabindex="0"><code>Na * Ax + Nb * Bx = Px
+Na * Ay + Nb * By = Py
+</code></pre><p>where <code>Na</code> and <code>Nb</code> are the amount of times you need to press buttons A and B respectively,
+<code>Ax</code> and <code>Bx</code> is how much the two buttons add to the X axis, <code>Ay</code> and <code>By</code> is how much the two buttons add to the Y axis,
+<code>Px</code> and <code>Py</code> is what we need to reach. <code>Ax</code>, <code>Ay</code>, <code>Bx</code>, <code>By</code>, <code>Px</code> and <code>Py</code> are all given by the puzzle input, meaning we simply need to
+find the two unknown terms in this system of two equations. This means that there&rsquo;s only one possible solution, so we don&rsquo;t need to worry
+about minimizing the cost. Deriving <code>Na</code> and <code>Nb</code> from this system we get this:</p>
+<pre tabindex="0"><code>Na = (Py * Bx - Px * By) / (Ay * Bx - Ax * By)
+Nb = (Px * Ay - Py * Ax) / (Ay * Bx - Ax * By)
+</code></pre><p>(notice that the denominator is the same for both of these)</p>
+<p>Since we can&rsquo;t exactly press a button 3.5 times, only consider solutions where <code>Na</code> and <code>Nb</code> are both natural numbers as correct.</p>
+<p>This was my first time ever using math to solve a programming puzzle. Also my first time encountering a situation where an <code>f32</code> didn&rsquo;t have
+enough precision and was giving incorrect answers.</p>
+<hr>
+<h1 id="day-14">Day 14</h1>
+<p><strong>Part 1</strong>: A robots position after 100 steps (in a field of size 101x103) can be calculated like this:</p>
+<pre tabindex="0"><code>Rx = (Rx + Vx * 100) % 101
+Ry = (Ry + Vy * 100) % 103
+</code></pre><p>The <code>%</code> operator here means the remainder left after <em>euclidian division</em>. This is what Python&rsquo;s modulo operator does by default but in Rust
+we need to do <code>.rem_euclid()</code> to achieve the same effect. This is needed since if <code>Vx</code> or <code>Vy</code> are negative we&rsquo;d get a negative result
+as a position using the normal modulo operator in Rust, which obviously can&rsquo;t be correct.</p>
+<p><strong>Part 2</strong>: Simply try applying the operation described above with a number of steps ranging from 1 to an arbitrarily large number
+(10000 worked in my case) and search for any row in the map containing 15 or more robots next to each other. This requires some manual checking.</p>
+<p>This was a very unusual Part 2.</p>
+<hr>
+<h1 id="day-15">Day 15</h1>
+<p><strong>Part 1</strong>: Simulate the robots movement. Whenever the robot needs to push a box, get the position of the next empty space after the box(es).
+Go back from that empty position to the robot and swap the empty space with each box and the robot.</p>
+<p>Here&rsquo;s an illustration:</p>
+<pre tabindex="0"><code>.OOO@
+O.OO@
+OO.O@
+OOO.@
+OOO@.
+</code></pre><p><strong>Part 2</strong>: Whenever the robot moves add its position and the position of any boxes it needs to move to a vector of targets.
+While we haven&rsquo;t hit a wall or stopped adding new targets see if any of the current targets&rsquo; movement will cause something else to move,
+if so add the newly moved item to the vector. If we didn&rsquo;t encounter any roadblocks then we can move everything in the needed direction.
+Clear the current positions of all targets, then put all the targets back in their new positions.</p>
+<p>This was the first of two times I resorted to looking up someone else&rsquo;s solution for a Part 2 and rewriting it in Rust.
+For a better explanation of Part 2 you can look at the comments I left in my code or watch the <a href="https://youtu.be/aCqtVmSSkUs&amp;t=711">video</a>
+by HyperNeutrino.</p>
+<hr>
+<h1 id="day-16">Day 16</h1>
+<p><strong>Part 1</strong>: Use dijkstras algorithm to find the cost of the shortest path.</p>
+<p><strong>Part 2</strong>: Also dijkstras, but this time we keep track of the cells we&rsquo;ve been to and their best cost. Once we reach the end with all
+possible shortest paths, backtrack to find all cells we visited. For a better explanation check out my code comments.</p>
+<p>This was my first time ever utilizing dijkstras algorithm.</p>
+<hr>
+<h1 id="day-17">Day 17</h1>
+<p><strong>Part 1</strong>: Emulate the instructions.</p>
+<p><strong>Part 2</strong>: Emulation won&rsquo;t work here, the answer is simply too large. Write out your input program instruction by instruction. Notice that
+the value of register A always gets right-shifted by some number <code>x</code> (in my case <code>x = 3</code>). We know that the program runs for as many loops
+as there are numbers in the initial program (since it outputs 1 number per iteration and it&rsquo;s supposed to output itself). This means A was
+right shifted that many times.</p>
+<p>What we can gather from this is that during the last iteration A must have had a value between <code>0</code> and <code>0 + (1 &lt;&lt; x)</code>.
+We know that the last iteration gave the last number in the program as its output. Check every A value in the range given above. If we get
+the desired output, add that value to a vector of targets along with the number of the iteration this value appeared in (in this case <code>1</code>).</p>
+<p>Let&rsquo;s imagine we get the number <code>16</code> as the only target after the last iteration of the program. Then <code>16</code> must have been the result of a
+<code>&gt;&gt; x</code> operation. Using that logic, we can see that the value of A for the second to last iteration must have been between <code>16 &lt;&lt; x</code> and
+<code>16 &lt;&lt; x + (1 &lt;&lt; x)</code>. Continue using that same logic to get all the possible values that A could&rsquo;ve been at the beginning of the program.</p>
+<p>I really like this puzzle.</p>
+<hr>
+<h1 id="day-18">Day 18</h1>
+<p><strong>Part 1</strong>: Use dijkstras algorithm.</p>
+<p><strong>Part 2</strong>: For every possible new wall position flood-fill the labyrinth to check if the exit is blocked off.</p>
+<p>This puzzle was a nice break from a string of really difficult ones.</p>
+<hr>
+<h1 id="day-19">Day 19</h1>
+<p><strong>Part 1</strong>: Pseudocode would explain this best:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> pattern <span style="color:#66d9ef">in</span> patterns {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> possible <span style="color:#f92672">=</span> vec![];
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> design <span style="color:#66d9ef">in</span> designs {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> pattern.starts_with(design) {
+</span></span><span style="display:flex;"><span>			possible.push(design);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> possible.is_empty() { <span style="color:#66d9ef">continue</span>; }
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> <span style="color:#f92672">!</span>possible.is_empty() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> towel <span style="color:#f92672">=</span> possible.pop();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> towel <span style="color:#f92672">==</span> pattern { res <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>; <span style="color:#66d9ef">break</span>; }
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> design <span style="color:#66d9ef">in</span> designs {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> pattern[towel.len()<span style="color:#f92672">..</span>].starts_with(design) {
+</span></span><span style="display:flex;"><span>				possible.push(pattern <span style="color:#f92672">+</span> design);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> res;
+</span></span></code></pre></div><p><strong>Part 2</strong>: Use a recursive function that takes a towel as a parameter and a cache. The base case for the funciton would be an empty string
+as a towel. If the base case is encountered, return <code>1</code> from the function.</p>
+<p>Iterate over possible lengths (<code>i</code>) of next designs to be used (from 1 to <code>min(max_design_len, towel.len())</code>). Check if <code>towel[..i]</code> is a
+possible design, if so then call the function with <code>towel[i..]</code> as input and add the result to a variable. Don&rsquo;t forget to save the result
+to the cache to avoid redundant calculations.</p>
+<p>The sum of results of that recursive function for all patterns is the answer.</p>
+<hr>
+<h1 id="day-20">Day 20</h1>
+<p><strong>Part 1</strong> and <strong>Part 2</strong>: Calculate how long it would take to go through the race without cheats. Save the amount of time it&rsquo;d take to get
+to each cell in a 2D array (save each wall as <code>-1</code>). For every non-wall cell check all possible locations where the racer can end up after
+cheating. If the racer would save time by taking this cheat (if <code>time_at_start + 100 + distance_traveled_with_cheat &lt;= normal_time_at_end</code>)
+then add <code>1</code> to the result.</p>
+<p>Good puzzle, not too difficult but took me some time to figure out.</p>
+<hr>
+<h1 id="day-21">Day 21</h1>
+<p><strong>Part 1</strong>: My solution for this part is vastly inefficient. I precomputed all the possible paths from any key to any other key on
+the numerical keypad and the directional keypad, then I traced all the possible paths from numpad -&gt; directional pad 1 -&gt; directional pad 2
+-&gt; directional pad 3. From there I just got the minimum length path. My solution takes about 15 seconds to run on my machine using cargos
+<code>release</code> mode.</p>
+<p><strong>Part 2</strong>: This is the second of two times I resorted to rewriting someone else&rsquo;s solution. Read
+<a href="https://todd.ginsberg.com/post/advent-of-code/2024/day21/">Todd Ginsberg&rsquo;s post</a> about how he solved it.</p>
+<p>This is the hardest puzzle of this years AoC, it took me 8 hours to solve Part 1 and I just gave up on Part 2.</p>
+<hr>
+<h1 id="day-22">Day 22</h1>
+<p><strong>Part 1</strong>: Simply apply the operations 2000 times.</p>
+<p><strong>Part 2</strong>: For each buyer calculate the last digits of their first 2000 secret numbers, then calculate the differences between those and
+put them in a vector of vectors.</p>
+<p>Next, find all unique four-element-long sequences of numbers in those differences and the number they lead
+to, only counting the first time a sequence occurs (this is also done for each buyer, resulting in a <code>Vec&lt;HashMap&lt;[i8; 4], u8&gt;&gt;</code>).</p>
+<p>Finally, find how many bananas each possible sequence would get you with each buyer.</p>
+<p>This puzzle was a nice break after the hellish endeavour that was Day 21.</p>
+<hr>
+<h1 id="day-23">Day 23</h1>
+<p>Yeah you&rsquo;re just gonna have to read the code for this one. I can&rsquo;t remember how or why what I wrote works.</p>
+<hr>
+<h1 id="day-24">Day 24</h1>
+<p><strong>Part 1</strong>: Simply emulate all the instructions starting with the ones where the both the input registers have known values.</p>
+<p><strong>Part 2</strong>: Here I used Python and <a href="https://graphviz.org/">graphviz</a> (specifically the <code>dot</code> tool) to visualize all the instructions as a
+graph. I manually looked through the graph to find any inconsistencies and that worked! I later made a solution in Rust but I can&rsquo;t be sure
+that it will work for any input (only tested it on mine and one other persons inputs).</p>
+<p>Neat puzzle, I enjoy having to manually dissect my input.</p>
+<hr>
+<h1 id="day-25">Day 25</h1>
+<p><strong>Part 1</strong>: Simply match all keys against all locks to see what fits.</p>
+<p><strong>Part 2</strong>: Nonexistent!</p>
+<hr>
+<h1 id="stats">Stats</h1>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>Part 1</th>
+          <th></th>
+          <th>Part 2</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Day</td>
+          <td>Time</td>
+          <td>Rank</td>
+          <td>Time</td>
+          <td>Rank</td>
+      </tr>
+      <tr>
+          <td>25</td>
+          <td>00:16:47</td>
+          <td>1828</td>
+          <td>00:16:55</td>
+          <td>1496</td>
+      </tr>
+      <tr>
+          <td>24</td>
+          <td>00:36:41</td>
+          <td>2995</td>
+          <td>04:28:14</td>
+          <td>2520</td>
+      </tr>
+      <tr>
+          <td>23</td>
+          <td>01:42:41</td>
+          <td>5421</td>
+          <td>04:59:00</td>
+          <td>7502</td>
+      </tr>
+      <tr>
+          <td>22</td>
+          <td>03:59:18</td>
+          <td>8354</td>
+          <td>04:50:40</td>
+          <td>6579</td>
+      </tr>
+      <tr>
+          <td>21</td>
+          <td>17:50:49</td>
+          <td>10973</td>
+          <td>&gt;24h</td>
+          <td>9457</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>10:23:05</td>
+          <td>14813</td>
+          <td>11:08:56</td>
+          <td>10982</td>
+      </tr>
+      <tr>
+          <td>19</td>
+          <td>04:20:39</td>
+          <td>11182</td>
+          <td>06:02:50</td>
+          <td>11142</td>
+      </tr>
+      <tr>
+          <td>18</td>
+          <td>06:44:08</td>
+          <td>14089</td>
+          <td>07:02:41</td>
+          <td>13467</td>
+      </tr>
+      <tr>
+          <td>17</td>
+          <td>08:27:22</td>
+          <td>16085</td>
+          <td>18:09:45</td>
+          <td>13674</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>04:39:30</td>
+          <td>9446</td>
+          <td>13:48:23</td>
+          <td>13099</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>06:41:36</td>
+          <td>15944</td>
+          <td>10:30:30</td>
+          <td>12238</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>05:12:30</td>
+          <td>14862</td>
+          <td>05:35:46</td>
+          <td>11463</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>01:13:01</td>
+          <td>6765</td>
+          <td>03:38:26</td>
+          <td>8603</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>01:08:07</td>
+          <td>6914</td>
+          <td>05:11:14</td>
+          <td>8643</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>04:25:08</td>
+          <td>22711</td>
+          <td>06:18:10</td>
+          <td>17552</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>09:49:31</td>
+          <td>28606</td>
+          <td>09:51:31</td>
+          <td>27414</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>01:38:03</td>
+          <td>9763</td>
+          <td>08:20:35</td>
+          <td>17538</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>05:42:09</td>
+          <td>21393</td>
+          <td>06:06:43</td>
+          <td>20029</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>04:43:27</td>
+          <td>19888</td>
+          <td>06:38:22</td>
+          <td>23240</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>01:06:20</td>
+          <td>10553</td>
+          <td>01:49:38</td>
+          <td>6847</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>02:03:34</td>
+          <td>16290</td>
+          <td>03:42:36</td>
+          <td>18013</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>09:45:16</td>
+          <td>48870</td>
+          <td>09:51:47</td>
+          <td>42026</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>03:04:19</td>
+          <td>30246</td>
+          <td>04:09:07</td>
+          <td>29451</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>03:51:03</td>
+          <td>33377</td>
+          <td>05:13:54</td>
+          <td>28091</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>03:58:53</td>
+          <td>22134</td>
+          <td>04:04:10</td>
+          <td>20651</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h1 id="final-thoughts">Final thoughts</h1>
+<p>Advent of Code this year was incredibly entertaining and useful to me as a programmer. Having given up on last years event only 13 days in,
+I was determined to finish every single puzzle this year. I learned some algorithms, added a few puzzle solving techniques into my repertoire
+but, most importantly, I started feeling that programming was fun again.</p>
+<p>I do have a few issues with the puzzles. There were way too many &ldquo;2D labyrinth puzzles&rdquo; for my liking; some of the Part 2s did not add
+to the puzzle at all, they were just &ldquo;do the same thing but a million more times&rdquo; which just felt tedious and uninteresting. Thankfully, the
+majority of the puzzles were still great.</p>
+<p>Overall, I enjoyed this years Advent of Code.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">grigoriy-agas.tech</h1>
+<p class="about__description">Grigoriy Agasyants&rsquo;s personal website</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    <p>Advent of Code 2024 solutions and thoughts.</p>
+    
+        <p>
+            
+            2025-01-02
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

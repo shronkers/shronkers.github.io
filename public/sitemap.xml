@@ -3,13 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2024-12-28T23:05:32+03:00</lastmod>
+    <lastmod>2025-01-02T18:46:28+03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-12-28T23:05:32+03:00</lastmod>
+    <lastmod>2025-01-02T18:46:28+03:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/making-a-website-with-hugo/</loc>
-    <lastmod>2024-12-28T23:05:32+03:00</lastmod>
+    <loc>http://localhost:1313/blog/advent-of-code-2024/</loc>
+    <lastmod>2025-01-02T18:46:28+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/test-post/</loc>
+    <lastmod>2024-12-29T22:49:32+03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
