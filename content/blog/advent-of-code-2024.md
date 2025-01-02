@@ -8,6 +8,8 @@ This year was the first time I solved every puzzle in Advent of Code.
 
 In this post I'll describe my solutions for each day and my share my thoughts about some of the puzzles.
 
+Here's a [link](https://github.com/shroomwastaken/advent-of-code-2024) to the repo with all of my solutions.
+
 <hr>
 
 # Day 1
