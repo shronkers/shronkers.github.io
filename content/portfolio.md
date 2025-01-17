@@ -11,7 +11,6 @@ Here's a showcase of my biggest projects and achievements.
 A parser for Source Engine [demos](https://developer.valvesoftware.com/wiki/.dem) (specifically Portal demos) written in Rust.
 Designed for dumping the contents of demo files to plaintext.
 Useful for speedrun verification purposes.
-This project is currently being [rewritten](https://github.com/shroomwastaken/repdp).
 
 ## bsp_dump ([link](https://github.com/shroomwastaken/bsp_dump))
 A parser for Source Engine [.bsp files](https://developer.valvesoftware.com/wiki/BSP) written in Rust.
