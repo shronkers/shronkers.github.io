@@ -29,7 +29,7 @@ runs Manjaro, so I was familliar with the general way OSs are installed.
 The general impression that I got from ~~researching~~ watching videos about
 Arch's install process was this: **VERY DIFFICULT AND FRAGILE**. Arch gives
 the user total control over every aspect of the system, which means that
-editing and important file incorrectly can cause your system to break.
+editing an important file incorrectly can cause your system to break.
 
 It took two attempts for me to get Arch to the state that it is in now.
 

@@ -9,6 +9,6 @@ Hello! My name is Grigoriy Agasyants. I am a 16-year-old hobbyist programmer fro
 
 I'm interested mostly in low-level programming. My favorite programming languages are Rust and C.
 
-As for foreign languages, I'm fluent in English, know a bit of French and have recently begun learning Chinese.
+As for foreign languages, I'm fluent in English and know a bit of French.
 
 You can visit my [portfolio](/portfolio) or my [blog](/blog) on this website.

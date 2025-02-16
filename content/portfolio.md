@@ -24,3 +24,9 @@ Made as the first project in Yandex.Lyceum year 2.
 
 ## chip8c ([link](https://github.com/shroomwastaken/chip8c))
 A chip8 emulator written in C using SDL2.
+
+## signsense ([link](https://github.com/duckysmacky/signsense))
+An app that translates Russian Sign Language alphabet using computer vision and ML.
+I was responsible for the ML part of the project, training a model to recognise
+hand gestures based on finger coordinates. PyTorch was used to train the model.
+This was made as a school project.
